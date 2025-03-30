@@ -13,6 +13,8 @@ public class OrbitAnimation extends JPanel implements ActionListener {
     private Image sunImage;
     private Image earthImage;
 
+
+
     private final int EARTH_SIZE = 50;
     private final int SUN_SIZE = 80;
 
