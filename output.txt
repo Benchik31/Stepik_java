@@ -1,1 +1,4 @@
-Hello Ben!
+23 + 42 = 65
+14 - f = ERROR
+15 / 0 = ERROR
+45 * 2 = 90

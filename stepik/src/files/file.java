@@ -1,37 +1,53 @@
 package files;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
 public class file {
     public static void main(String[] args) {
-        try(FileReader reader = new FileReader("input.txt");)
-        {
-            // читаем посимвольно
-            int c;
-            while((c=reader.read())!=-1){
+        List<String> results = new ArrayList<>();
 
-                System.out.print((char)c);
+        try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String result = evaluateExpression(line);
+                results.add(line + " = " + result);
             }
-        }
-        catch(IOException ex){
-
-            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Ошибка при чтении: " + ex.getMessage());
         }
 
-        try(FileWriter writer = new FileWriter("output.txt", false))
-        {
-            // запись всей строки
-            String text = "Hello Ben!";
-            writer.write(text);
-
-            writer.flush();
+        // Запись в output.txt
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
+            for (String res : results) {
+                writer.write(res);
+                writer.newLine();
+            }
+        } catch (IOException ex) {
+            System.out.println("Ошибка при записи: " + ex.getMessage());
         }
-        catch(IOException ex){
+    }
 
-            System.out.println(ex.getMessage());
+    // Метод, который пытается вычислить выражение
+    private static String evaluateExpression(String line) {
+        try {
+            String[] parts = line.trim().split(" ");
+            if (parts.length != 3) return "ERROR";
+
+            int a = Integer.parseInt(parts[0]);
+            String op = parts[1];
+            int b = Integer.parseInt(parts[2]);
+
+            return switch (op) {
+                case "+" -> String.valueOf(a + b);
+                case "-" -> String.valueOf(a - b);
+                case "*" -> String.valueOf(a * b);
+                case "/" -> (b == 0) ? "ERROR" : String.valueOf(a / b);
+                default -> "ERROR";
+            };
+        } catch (Exception e) {
+            return "ERROR";
         }
-
     }
 }
