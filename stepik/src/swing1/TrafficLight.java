@@ -9,19 +9,15 @@ public class TrafficLight extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Рисуем корпус светофора
         g.setColor(Color.DARK_GRAY);
         g.fillRect(90, 50, 120, 300);
 
-        // Рисуем красный свет
         g.setColor(Color.RED);
         g.fillOval(110, 70, 80, 80);
 
-        // Желтый
         g.setColor(Color.YELLOW);
         g.fillOval(110, 160, 80, 80);
 
-        // Зеленый
         g.setColor(Color.GREEN);
         g.fillOval(110, 250, 80, 80);
     }
