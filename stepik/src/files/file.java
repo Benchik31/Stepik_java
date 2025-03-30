@@ -1,6 +1,7 @@
 package files;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class file {
@@ -13,6 +14,19 @@ public class file {
 
                 System.out.print((char)c);
             }
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        }
+
+        try(FileWriter writer = new FileWriter("output.txt", false))
+        {
+            // запись всей строки
+            String text = "Hello Ben!";
+            writer.write(text);
+
+            writer.flush();
         }
         catch(IOException ex){
 
