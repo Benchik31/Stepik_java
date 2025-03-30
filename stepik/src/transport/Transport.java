@@ -18,4 +18,15 @@ public abstract class Transport {
     }
 
     public abstract void move();
+    public static void main(String[] args) {
+        Bus bus = new Bus("Городской автобус", 50);
+        bus.move();
+        bus.transportPassengers();
+
+        Tank tank = new Tank("Т-90", 60);
+        tank.move();
+        tank.attack();
+
+    }
 }
+
