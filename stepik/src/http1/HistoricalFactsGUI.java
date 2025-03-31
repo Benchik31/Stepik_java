@@ -16,29 +16,27 @@ import java.util.Properties;
 
 public class HistoricalFactsGUI {
     public static void main(String[] args) {
-        // Создание графического интерфейса
+
+
         JFrame frame = new JFrame("Этот день в истории");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Панель для ввода
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Модель для JDatePicker
         UtilDateModel model = new UtilDateModel();
         Properties properties = new Properties();
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, properties); // Используем JDatePanelImpl с Properties
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter()); // Используем JDatePickerImpl с DateLabelFormatter
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, properties);
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         panel.add(new JLabel("Выберите дату:"));
         panel.add(datePicker);
 
-        // Кнопка для извлечения факта
         JButton fetchButton = new JButton("Получить факт");
         panel.add(fetchButton);
 
-        // Метка для отображения результата
         JTextArea resultArea = new JTextArea(5, 30);
         resultArea.setEditable(false);
         panel.add(new JScrollPane(resultArea));
@@ -46,7 +44,6 @@ public class HistoricalFactsGUI {
         frame.add(panel);
         frame.setVisible(true);
 
-        // Действие по нажатию на кнопку
         fetchButton.addActionListener(e -> {
             Date selectedDate = (Date) datePicker.getModel().getValue();
             if (selectedDate != null) {
@@ -64,17 +61,13 @@ public class HistoricalFactsGUI {
         });
     }
 
-    // Метод для получения интересного факта
     public static String fetchFact(String dateStr) throws Exception {
-        // Формируем URL для запроса
         String urlString = "http://numbersapi.com/" + dateStr + "/date?json=true";
 
-        // Создаем URL и подключаемся
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
-        // Читаем ответ от сервера
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
         StringBuilder response = new StringBuilder();
@@ -83,7 +76,6 @@ public class HistoricalFactsGUI {
         }
         in.close();
 
-        // Извлекаем интересный факт из ответа
         return response.toString();
     }
 }
