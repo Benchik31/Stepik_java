@@ -14,7 +14,6 @@ public class MouseAddObject extends JPanel implements MouseListener {
     private Image objectImage;
     private final int SIZE = 50;
 
-    // Список координат для объектов
     private final java.util.List<Point> objectPositions = new ArrayList<>();
 
     public MouseAddObject() {
