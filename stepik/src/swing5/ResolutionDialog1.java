@@ -3,9 +3,9 @@ package swing5;
 import javax.swing.*;
 import java.awt.*;
 
-public class ResolutionDialog extends JPanel {
+public class ResolutionDialog1 extends JPanel {
 
-    public ResolutionDialog() {
+    public ResolutionDialog1() {
         setPreferredSize(new Dimension(400, 400));
         setBackground(Color.WHITE);
 
@@ -15,37 +15,45 @@ public class ResolutionDialog extends JPanel {
         add(resolutionButton);
     }
 
+    // Диалоговое окно с выбором разрешения
     private void showResolutionDialog() {
-        String[] resolutions = {"800x600", "1024x768", "1280x1024", "1920x1080"};
-        JComboBox<String> resolutionComboBox = new JComboBox<>(resolutions);
-
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new JLabel("Выберите разрешение экрана:"));
-        panel.add(resolutionComboBox);
+
+        JRadioButton rb1 = new JRadioButton("800x600");
+        JRadioButton rb2 = new JRadioButton("1024x768");
+        JRadioButton rb3 = new JRadioButton("1280x1024");
+        JRadioButton rb4 = new JRadioButton("1920x1080");
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(rb1);
+        group.add(rb2);
+        group.add(rb3);
+        group.add(rb4);
+
+        panel.add(rb1);
+        panel.add(rb2);
+        panel.add(rb3);
+        panel.add(rb4);
 
         int option = JOptionPane.showConfirmDialog(this, panel, "Выбор разрешения", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            String selectedResolution = (String) resolutionComboBox.getSelectedItem();
             int width = 800, height = 600;
 
-            switch (selectedResolution) {
-                case "800x600":
-                    width = 800;
-                    height = 600;
-                    break;
-                case "1024x768":
-                    width = 1024;
-                    height = 768;
-                    break;
-                case "1280x1024":
-                    width = 1280;
-                    height = 1024;
-                    break;
-                case "1920x1080":
-                    width = 1920;
-                    height = 1080;
-                    break;
+            if (rb1.isSelected()) {
+                width = 800;
+                height = 600;
+            } else if (rb2.isSelected()) {
+                width = 1024;
+                height = 768;
+            } else if (rb3.isSelected()) {
+                width = 1280;
+                height = 1024;
+            } else if (rb4.isSelected()) {
+                width = 1920;
+                height = 1080;
             }
 
             createWindow(width, height);
